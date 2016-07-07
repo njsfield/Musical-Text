@@ -1,13 +1,7 @@
-//text formatter
-
-
-
-
-
-
 
 //Way Point class adder
 
+var triggerFunction = function(){
   $('.tone-trigger').each(function() {
     new Waypoint({
       element: this,
@@ -25,6 +19,66 @@
       group: '.tone-trigger'
     })
   })
+}
+
+//Text Formatter
+
+var $bodyText = $('.body-text').html();
+
+
+var searchWord = function(word) {
+$('.tone-trigger').removeClass('np-current');
+var reg = new RegExp(word, "gi");
+var $newBodyText = $bodyText.replace(reg, "<span class='tone-trigger'>" + word + "</span>");
+$('.body-text').html($newBodyText);
+triggerFunction();
+}
+
+
+
+
+
+//Search Bar
+
+//toggling the bar
+
+$(".fa-search").on("click", function(event){
+    console.log("clicked");
+    if ($(".search").hasClass("search-open")) {
+        $(".search").removeClass("search-open");
+    } else {
+        $(".search").addClass("search-open");
+    }
+})
+
+$(".fa-times").on("click", function(event){
+        $(".search").removeClass("search-open");
+})
+
+
+//using searching field
+
+$("#search-button").on("click", function(){
+    if ($("#search-field").val()) {
+        var searchVal = new RegExp($("#search-field").val(), "g")
+        if (searchVal.test($bodyText)) {
+            searchWord($("#search-field").val());
+            $("#search-field").attr("placeholder", $("#search-field").val());
+            $("#search-field").val("");
+            $("#search-field").removeClass("red-background");
+            $("#search-field").addClass("green-background");
+        } else {
+           $("#search-field").addClass("red-background");
+        }
+    }
+})
+
+$("#search-field").on("focus", function(){
+    if ($(this).hasClass("red-background")) {
+        $(this).val("");
+    }
+})
+
 
 
 
@@ -106,8 +160,6 @@ var playTone = function(){
 var keys = ["A","B","C","D","E","F","G"];
 var key = keys[Math.floor(Math.random() * 7)];
 synth.triggerAttackRelease(key + "4", "4n");
-console.log(key + "4 was played, as a quarter note");
-
 }
 
 
