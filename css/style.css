@@ -1,0 +1,44 @@
+/**** base body styles ****/
+
+
+
+/*** container ****/
+
+.row {
+    text-align: center;
+}
+
+
+.container {
+    display: inline-block;
+    max-width: 1200px;
+}
+
+.body-text {
+    line-height: 30px;
+    color: grey;
+}
+
+body {
+    background: black;
+}
+
+
+/*** colours ****/
+
+
+@keyframes toWhite {
+    0% { color:  blue }
+    100% { color: white }
+}
+
+
+.np-current {
+  position: relative;
+  color: blue;
+  font-weight: 900;
+  transition: all .1s;
+  animation: toWhite 1s ease forwards;
+}
+
+

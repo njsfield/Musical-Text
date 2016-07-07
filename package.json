@@ -1,0 +1,11 @@
+{
+  "name": "musical-text",
+  "version": "1.0.0",
+  "description": "A musical experiment to trigger sounds on scroll",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
