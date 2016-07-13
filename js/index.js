@@ -9,6 +9,7 @@ if (!localStorage.welcomeMessage) {
 }
 
 //Hide box & save in local storage
+
 $("#welcome-box-cross").on("click",function(){
     localStorage.clear();
     $("#welcome-container").hide();
