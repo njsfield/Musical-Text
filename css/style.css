@@ -181,6 +181,10 @@ a {
     padding: 0 10px;
 }
 
+#search-button {
+    background-color: lightgrey;
+}
+
 
 #search-mag-container > i,#search-times-container > i {
     position: relative;
