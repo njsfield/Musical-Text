@@ -1,6 +1,6 @@
 ## Synopsis
 
-A fun, musical, odd, something project, quite simply a musical version of the Find feature in your favourite browser.
+A fun, musical, odd, something project, quite simply a musical version of the ‘Find’ feature in your favourite browser.
 Inspired by the projects developed with Tone.js, Musical Text explores the popular WebAudio synthesis/sequencing library in combination with Waypoints to achieve an interactive audio installation in the browser.
 
 A master chain is set up which loads various synthesiser modules and effects that are routed through audio nodes, these are then customised via presets which the user determines. 
