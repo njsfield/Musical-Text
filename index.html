@@ -13,6 +13,39 @@
 </head>
 <body>
 
+<div id="welcome-overlay" style="display: none;"></div>
+
+<div id="welcome-container" style="display: none;">
+   <div class="welcome-box">
+    <div class="welcome-box-cross-container">
+       <i id="welcome-box-cross" class="fa fa-times fa-3x" aria-hidden="true"></i>
+    </div>
+    <p id="welcome-title">Musical Text</p>
+    <p class="welcome-text-red">Please note, this site uses audio. To mute, click the mute button <i class="fa fa-volume-up fa-1x" aria-hidden="true"></i> on the right hand side.
+    </p>
+       <p class="welcome-text">To use, simply search for a word in the Lorum Ipsum text by using the search tool <i class="fa fa-search fa-1x" aria-hidden="true"></i>, if it is found then scroll down to see/hear when it appears on screen. The search bar will appear <span class="green-text">green</span> if it is found. If it is not found the search bar will appear <span class="red-text">red</span>. Try searching for the word 'Sed' to demonstrate how it works.
+        <br>
+        <br>
+       To edit the text, hit the edit button <i class="fa fa-pencil-square-o fa-1x" aria-hidden="true"></i> to edit the text to your liking. You can then save the text after and search again.
+        <br>
+        <br>
+       To change the audio preset to a different synthesizer sound, click the preset button <i class="fa fa-music fa-1x" aria-hidden="true"></i> and choose from one of four presets.
+        <br>
+       To find out more about how this site was created using <a href="https://github.com/Tonejs/Tone.js/">Tone.js</a> and <a href="http://imakewebthings.com/waypoints/">Waypoints</a>, please visit my <a href="http://nickfield.org">website</a>.
+        <br>
+         <br>
+        Thank you for visiting :)
+         <br>
+         <br>
+        Nick Field
+       </p>
+         <br>
+         <br>
+       <p id="click-to-close">Click here to close this</p>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="container">
 
@@ -22,7 +55,7 @@
             </div>
 
             <div id="search-field-container">
-                <input type="text" id="search-field" placeholder="Sed">
+                <input type="text" id="search-field">
             </div>
 
             <div id="search-button-container">
@@ -30,9 +63,51 @@
             </div>
 
             <div id="search-times-container">
-                <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                <i id="search-button-cross" class="fa fa-times fa-2x" aria-hidden="true"></i>
             </div>
 
+    </div>
+
+    <div class="edit">
+            <div id="edit-button-container">
+                <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+            </div>
+
+            <div id="save-button-container">
+                <button id="save-button">Save?</button>
+            </div>
+
+    </div>
+
+    <div class="volume">
+            <div id="volume-button-container">
+                <i id="volume-button" class="fa fa-volume-up fa-2x" aria-hidden="true"></i>
+            </div>
+        </div>
+
+    <div class="audio-preset">
+            <div id="audio-button-container">
+                <i id="audio-button" class="fa fa-music fa-2x" aria-hidden="true"></i>
+            </div>
+
+            <div id="preset-container">
+                <span id="preset-text">Preset:</span>
+                <span id="preset-1" class="preset preset-on">1</span>
+                <span id="preset-2" class="preset">2</span>
+                <span id="preset-3" class="preset">3</span>
+                <span id="preset-4" class="preset">4</span>
+            </div>
+
+            <div id="audio-times-container">
+                <i id="audio-button-cross" class="fa fa-times fa-2x" aria-hidden="true"></i>
+            </div>
+
+    </div>
+
+     <div class="info">
+            <div id="info-button-container">
+                <i id="info-button" class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
+            </div>
         </div>
 
         <div class="body-text">
