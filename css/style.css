@@ -150,10 +150,6 @@ a {
     transition: right .2s ease-out;
 }
 
-.search input {
-    background: black;
-}
-
 
 .search-open {
     right: 0;
@@ -182,7 +178,7 @@ a {
 }
 
 #search-button {
-    background-color: lightgray !immportant;
+    background-color: lightgray !important;
 }
 
 
