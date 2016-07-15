@@ -9,11 +9,15 @@ if (!localStorage.welcomeMessage) {
 }
 
 //Hide box & save in local storage
+
+
+
 $("#welcome-box-cross").on("click",function(){
     localStorage.clear();
     $("#welcome-container").hide();
     $("#welcome-overlay").hide();
     localStorage.setItem("welcomeMessage", "seen");
+
 });
 
 $("#click-to-close").on("click",function(){
@@ -468,7 +472,6 @@ var comp = new Tone.Compressor(-30, 5);
 var limiter = new Tone.Limiter(-2);
 
 
-Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
 
 
 
@@ -506,4 +509,14 @@ var chordMapper = function(note,pitch) {
     	default : return undefined;
     }
 }
+
+
+$("#welcome-box-cross").on("touchend", function(){
+    Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
+})
+
+$("#welcome-box-cross").on("click", function(){
+    Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
+})
+
 
