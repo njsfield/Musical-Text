@@ -187,6 +187,18 @@
   <script src="js/Tone.min.js"></script>
   <script src="js/index.min.js"></script>
 
+    <script>
+
+    var had_touch = false;
+    // script to allow support for IOS
+    document.addEventListener("touchend", function (){
+        if (had_touch)		return;
+         playTone();
+         had_touch = true;}
+    );
+
+    </script>
+
 </body>
 
 </html>
