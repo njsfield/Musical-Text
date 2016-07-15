@@ -32,6 +32,38 @@ body {
 }
 
 
+/*** Mobile Start ****/
+
+#MobileStart {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.8); }
+  #MobileStart #Button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-color: #7F33ED;
+    color: white;
+    font-family: monospace;
+    border-radius: 3px;
+    margin-top: -40px;
+    margin-left: -40px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px; }
+  #MobileStart #Button:hover {
+    background-color: #7F33ED;
+    color: white; }
+  #MobileStart #Button:hover:active {
+    background-color: #ED33CF;
+    color: #22DBC0; }
+
+
 /*** colours ****/
 
 

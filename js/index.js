@@ -1,3 +1,40 @@
+// For Mobile support-
+
+/* globals Tone, StartAudioContext */
+
+
+var Interface = {
+	isMobile : false
+};
+
+/**
+ *
+ *
+ *  INIT
+ *
+ */
+$(function(){
+	//mobile start
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		Interface.isMobile = true;
+		$("body").addClass("Mobile");
+		var element = $("<div>", {"id" : "MobileStart"}).appendTo("body");
+		var button = $("<div>").attr("id", "Button").text("Enter").appendTo(element);
+		StartAudioContext.setContext(Tone.context);
+		StartAudioContext.on(button);
+		StartAudioContext.onStarted(function(){
+			element.remove();
+		});
+	}
+});
+
+
+
+
+
+
+
+
 
 //Welcome box
 
