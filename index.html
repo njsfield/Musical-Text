@@ -182,20 +182,6 @@
 </div>
 
 
-<!-- Initialize sound for mobile -->
-    <script type="text/javascript">
-        window.addEventListener("touchend", ios_unlock_sound, false);
-        function ios_unlock_sound(event) {
-            var buffer = g_WebAudioContext.createBuffer(1, 1, 22050);
-            var source = g_WebAudioContext.createBufferSource();
-            source.buffer = buffer;
-            source.connect(g_WebAudioContext.destination);
-            source.noteOn(0);
-            window.removeEventListener("touchend", ios_unlock_sound, false)
-    ;}
-    </script>
-
-
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.waypoints.min.js"></script>
   <script src="js/Tone.min.js"></script>
