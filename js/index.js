@@ -11,29 +11,13 @@ if (!localStorage.welcomeMessage) {
 //Hide box & save in local storage
 
 
-
-$("#welcome-box-cross").on("click",function(){
+$("#welcome-box-cross, #click-to-close, #welcome-overlay").on("click",function(){
     localStorage.clear();
     $("#welcome-container").hide();
     $("#welcome-overlay").hide();
     localStorage.setItem("welcomeMessage", "seen");
 
 });
-
-$("#click-to-close").on("click",function(){
-    localStorage.clear();
-    $("#welcome-container").hide();
-    $("#welcome-overlay").hide();
-    localStorage.setItem("welcomeMessage", "seen");
-});
-
-$("#welcome-overlay").on("click",function(){
-    localStorage.clear();
-    $("#welcome-container").hide();
-    $("#welcome-overlay").hide();
-    localStorage.setItem("welcomeMessage", "seen");
-});
-
 
 
 //show info box again
@@ -81,24 +65,21 @@ triggerFunction();
 }
 
 
-
-
-
-//Search Bar
+//Nav bar toggles
 
 //toggling the bar
 
 $(".fa-search").on("click", function(event){
     console.log("clicked");
-    if ($(".search").hasClass("search-open")) {
-        $(".search").removeClass("search-open");
+    if ($(".search").hasClass("open")) {
+        $(".search").removeClass("open");
     } else {
-        $(".search").addClass("search-open");
+        $(".search").addClass("open");
     }
 })
 
 $("#search-button-cross").on("click", function(event){
-        $(".search").removeClass("search-open");
+        $(".search").removeClass("open");
 })
 
 
@@ -130,15 +111,15 @@ $("#search-field").on("focus", function(){
 
 //toggling the edit button
 
-$(".fa-pencil-square-o").on("click", function(event){
-    if ($(".edit").hasClass("edit-open")) {
-        $(".edit").removeClass("edit-open");
+$(".fa-pencil").on("click", function(event){
+    if ($(".edit").hasClass("open")) {
+        $(".edit").removeClass("open");
         $(".body-text").html($("textarea").val());
         $("textarea").remove();
         $(".body-text").show();
         $bodyText = $('.body-text').html();
     } else {
-        $(".edit").addClass("edit-open");
+        $(".edit").addClass("open");
         var inTextArea = $("<textarea>").text($bodyText);
         $(".body-text").hide();
         $(".container").append(inTextArea);
@@ -146,7 +127,7 @@ $(".fa-pencil-square-o").on("click", function(event){
 })
 
 $("#save-button").on("click", function(event){
-        $(".edit").removeClass("edit-open");
+        $(".edit").removeClass("open");
         $(".body-text").html($("textarea").val());
          $("textarea").remove();
         $(".body-text").show();
@@ -178,15 +159,15 @@ $("#volume-button").on("click", function(){
 // Audio Preset button
 
 $("#audio-button").on("click", function(){
-    if ( $(".audio-preset").hasClass("audio-preset-open") ) {
-        $(".audio-preset").removeClass("audio-preset-open");
+    if ( $(".audio-preset").hasClass("open") ) {
+        $(".audio-preset").removeClass("open");
     } else {
-        $(".audio-preset").addClass("audio-preset-open");
+        $(".audio-preset").addClass("open");
     }
 })
 
 $("#audio-button-cross").on("click", function(){
-    $(".audio-preset").removeClass("audio-preset-open");
+    $(".audio-preset").removeClass("open");
 })
 
 
@@ -312,13 +293,13 @@ var sineSynth = new Tone.MonoSynth({
     'rolloff':-24
 },
 'envelope':{
-'attack':0.009,
+'attack':0.01,
 'decay':0.2,
 'sustain':0.3,
 'release':1.5
 },
 'filterEnvelope':{
-'attack':0.006,
+'attack':0.01,
 'decay':0.9,
 'sustain':0.5,
 'release':1,

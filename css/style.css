@@ -12,7 +12,6 @@
 
 }
 
-
 .container {
     display: inline-block;
     position: relative;
@@ -29,6 +28,95 @@
 body {
     background: black;
     font-family: 'Roboto', sans-serif;
+}
+
+textarea {
+    min-width: 100vw;
+    max-width: 1200px;
+    height: 100vh;
+}
+
+button {
+    border: none;
+    background: lightgray;
+}
+
+
+
+
+/**** Navigation Elements ****/
+
+.nav-container {
+    position: fixed;
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.nav-layer {
+    display: block;
+    height: 2.5rem;
+    text-align: right;
+}
+
+.nav-item {
+    display: inline-block;
+    color: white;
+    min-width: 40px;
+    height: 2.2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tab {
+    display: inline-block;
+    background: black;
+    height: 2.5rem;
+    overflow: hidden;
+    border: 3px solid black;
+    width: 3rem;
+}
+
+#search-field, #search-button, #save-button {
+    height: 2rem;
+    margin-top: 1px;
+    border-radius: 0;
+    border: 0;
+}
+
+i, .preset {
+    cursor: pointer;
+}
+
+
+.fa {
+    padding: 1rem;
+    margin-top: -.5rem;
+}
+
+#preset-container > * {
+    padding-top: .5rem;
+}
+
+#search-field {
+    width: 10rem;
+    border: none;
+}
+
+.fa-volume-down {
+    color: red;
+}
+
+.preset-on {
+    background: white;
+    color: black;
+}
+
+
+/** transition **/
+
+.open {
+    width: auto;
 }
 
 
@@ -51,12 +139,35 @@ body {
 }
 
 
+#search-field:focus {
+    background: white;
+    color: black;
+}
+
+#search-field {
+    transition: all .2s ease;
+}
+
+.green-background {
+    background: #009688 !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.red-background {
+    background: #FF5252 !important;
+    color: white;
+    font-weight: bold;
+}
+
+
+
 /******** Welcome **********/
 
 #welcome-title {
-    font-weight: bold;
     font-size: 23px;
     text-decoration: underline;
+    font-weight: 100;
 }
 
 #welcome-container {
@@ -66,6 +177,7 @@ body {
     color: black;
     z-index: 1000;
     margin: 50px;
+    font-weight: 100;
     padding: 25px;
     max-width: 500px;
     line-height: 23px;
@@ -112,6 +224,7 @@ a {
     top: 0;
     right: 3px;
     cursor: pointer;
+    margin: .5rem;
 }
 
 .green-text {
@@ -122,299 +235,21 @@ a {
     color: red;
 }
 
-#click-to-close {
-    display: block;
-    text-align: center;
-    text-decoration: underline;
-    font-weight: 900;
-    cursor: pointer;
-    font-style: italic;
-    margin-bottom: 20px;
-}
 
 
 
-
-
-/*** search bar ****/
-
-.search {
-    display: inline-block;
-    overflow: hidden;
-    position: fixed;
-    right: -300px;
-    min-width: 46px;
-    background: black;
-    border: 8px solid black;
-    border-radius: 4px;
-    border-top: 0;
-    padding-left: 3px;
-    transition: right .2s ease-out;
-}
-
-
-.search-open {
-    right: 0;
-}
-
-.search-open input{
-    background: white;
-}
-
-.search-open .fa-search{
-    cursor: default !important;
-}
-
-
-
-#search-mag-container, #search-button-container, #search-field-container, #search-times-container {
-    display: inline-block;
-}
-
-#search-button, #search-field {
-    height: 35px;
-    margin: 0;
-    border: none;
-    border-radius: 4px;
-    padding: 0 10px;
-}
-
-#search-button {
-    background-color: lightgray !important;
-
-}
-
-
-#search-mag-container > i,#search-times-container > i {
-    position: relative;
-    top: 5px;
-    color: white;
-    font-size: 2.2em;
-    cursor: pointer;
-}
-
-#search-field:focus {
-    background: white;
-    color: black;
-}
-
-#search-field {
-    transition: all .2s ease;
-}
-
-.green-background {
-    background: #009688 !important;
-    color: white !important;
-    font-weight: bold;
-}
-
-.red-background {
-    background: #FF5252 !important;
-    color: white;
-    font-weight: bold;
-}
-
-
-
-/******* Text Edit ********/
-
-.edit {
-    display: inline-block;
-    overflow: hidden;
-    position: fixed;
-    top: 44px;
-    right: -75px;
-    min-width: 46px;
-    background: black;
-    border: 8px solid black;
-    border-radius: 4px;
-    border-top: 12;
-    transition: right .2s ease-out;
-}
-
-.edit-open {
-    right: 0;
-}
-
-.edit-open #save-button {
-    background: lightgrey;
-}
-
-#edit-button-container, #save-button-container{
-    display: inline-block;
-}
-
-#save-button {
-    position: relative;
-    top: -5px;
-    height: 35px;
-    margin: 0;
-    border: none;
-    border-radius: 4px;
-    padding: 0 10px;
-    background: black;
-}
-
-
-#edit-button-container > i {
-    position: relative;
-    top: 5px;
-    color: white;
-    font-size: 2.3em;
-    cursor: pointer;
-}
-
-
-
-
-textarea {
-    min-width: 100vw;
-    max-width: 1200px;
-    height: 100vh;
-}
-
-
-/******* Volume container ********/
-
-.volume {
-    display: inline-block;
-    overflow: hidden;
-    position: fixed;
-    top: 95px;
-    right: 0px;
-    min-width: 47px;
-    background: black;
-    border: 8px solid black;
-    border-radius: 4px;
-    border-top: 12;
-    transition: right .2s ease-out;
-}
-
-#volume-button-container {
-    display: inline-block;
-    cursor: pointer;
-    color: white;
-}
-
-
-.fa-volume-down {
-    color: red;
-}
-
-/******* Preset container ********/
-
-
-.audio-preset {
-    display: inline-block;
-    overflow: hidden;
-    position: fixed;
-    top: 140px;
-    right: -229px;
-    background: black;
-    border: 8px solid black;
-    border-radius: 4px;
-    border-top: 12;
-    padding-right: 2px;
-    transition: right .2s ease-out;
-}
-
-.audio-preset-open {
-    right: 0;
-}
-
-
-#audio-button-container, #preset-container, #audio-times-container{
-    display: inline-block;
-    color: white;
-}
-
-#preset-container {
-    position: relative;
-    top: -2px;
-    margin: 0 5px;
-}
-
-.preset {
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    border: 1px solid white;
-
-}
-
-.preset-on {
-    background: white;
-    color: black;
-}
-
-.preset, #audio-button, #audio-button-cross {
-    cursor: pointer;
-}
-
-
-/******* Info button ********/
-
-
-.info {
-    display: inline-block;
-    overflow: hidden;
-    position: fixed;
-    top: 188px;
-    right: 0px;
-    min-width: 47px;
-    background: black;
-    border: 8px solid black;
-    border-radius: 4px;
-    border-top: 12;
-}
-
-#info-button-container {
-    display: inline-block;
-    cursor: pointer;
-}
-
-#info-button-container {
-    color: white;
-}
-
-/****** Media Queries ******/
-
+/** media **/
 
 @media screen and (min-width: 1200px) {
     #welcome-container {
     top: calc(50vh - 370px);
     left: calc(50vw - 250px)
     }
-
-    #click-to-close {
+     #click-to-close {
         display: none;
     }
 
-    .search {
-        right: calc(50vw - 900px);
-    }
-    .search-open {
-        right: calc(50vw - 600px);
-    }
-
-    .edit {
-        right: calc(50vw - 675px);
-    }
-    .edit-open {
-        right: calc(50vw - 600px);
-    }
-
-    .volume {
-        right: calc(50vw - 600px)
-    }
-    .audio-preset {
-        right: calc(50vw - 829px)
-    }
-    .audio-preset-open {
-        right: calc(50vw - 600px)
-    }
-
-    .info {
-        right: calc(50vw - 600px)
-    }
 }
+
+
+
