@@ -176,63 +176,6 @@ $(".preset").on("click", function(){
 //Synth Generation (utilizes Tone.js)
 
 
-// Preset Alterer
-
-function presetMaker(number) {
-    switch(+number) {
-        case 1:
-            synthSetting("square");
-            synthPitch = 4;
-            synthType = 1;
-            noteLength = "8n";
-            pingPong.wet.rampTo(0.1, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0, 0.5);
-            chorus.wet.rampTo(0, 0.5);
-            freeverb.wet.rampTo(0.1, 0.5);
-            break;
-        case 2:
-            synthSetting("sine");
-            synthPitch = 5;
-            synthType = 2;
-            noteLength = "4n";
-            pingPong.wet.rampTo(0.05, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0.9, 0.5);
-            chorus.wet.rampTo(0, 0.5);
-            freeverb.wet.rampTo(0.05, 0.5);
-            break;
-        case 3:
-            synthSetting("saw");
-            synthPitch = 3;
-            synthType = 3;
-            noteLength = "2n";
-            pingPong.wet.rampTo(0, 0.5);
-            feedbackDelay.wet.rampTo(0.01, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0.9, 0.5);
-            chorus.wet.rampTo(0.5, 0.5);
-            freeverb.wet.rampTo(0.01, 0.5);
-            break;
-        case 4:
-            synthSetting("chord");
-            synthPitch = 3;
-            synthType = 4;
-            noteLength = "4n";
-            pingPong.wet.rampTo(0, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0.1, 0.5);
-            vibrato.wet.rampTo(0.3, 0.5);
-            chorus.wet.rampTo(0.2, 0.5);
-            freeverb.wet.rampTo(0.05, 0.5);
-            break;
-        default: ;
-    }
-}
-
-
 //Global audio variables
 
 var synthPitch = 4;
@@ -296,7 +239,7 @@ var sineSynthPresets = {
 'exponent':5
 },
 'volume':3.5
-};
+}
 
 var sawSynthPresets = {
 'frequency' : "C4",
@@ -386,6 +329,61 @@ function synthSetting (setting) {
 
 
 
+// Preset Alterer
+
+function presetMaker(number) {
+    switch(+number) {
+        case 1:
+            synthSetting("square");
+            synthPitch = 4;
+            synthType = 1;
+            noteLength = "8n";
+            pingPong.wet.rampTo(0.1, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0, 0.5);
+            chorus.wet.rampTo(0, 0.5);
+            freeverb.wet.rampTo(0.1, 0.5);
+            break;
+        case 2:
+            synthSetting("sine");
+            synthPitch = 5;
+            synthType = 2;
+            noteLength = "4n";
+            pingPong.wet.rampTo(0.05, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0.9, 0.5);
+            chorus.wet.rampTo(0, 0.5);
+            freeverb.wet.rampTo(0.05, 0.5);
+            break;
+        case 3:
+            synthSetting("saw");
+            synthPitch = 3;
+            synthType = 3;
+            noteLength = "2n";
+            pingPong.wet.rampTo(0, 0.5);
+            feedbackDelay.wet.rampTo(0.01, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0.9, 0.5);
+            chorus.wet.rampTo(0.5, 0.5);
+            freeverb.wet.rampTo(0.01, 0.5);
+            break;
+        case 4:
+            synthSetting("chord");
+            synthPitch = 3;
+            synthType = 4;
+            noteLength = "4n";
+            pingPong.wet.rampTo(0, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0.1, 0.5);
+            vibrato.wet.rampTo(0.3, 0.5);
+            chorus.wet.rampTo(0.2, 0.5);
+            freeverb.wet.rampTo(0.05, 0.5);
+            break;
+        default: ;
+    }
+}
 
 
 
@@ -469,7 +467,7 @@ var feedbackDelay = new Tone.FeedbackDelay({
 });
 
 
-
+// Synec Delay
 var syncedDelay = new Tone.PingPongDelay({
    "delayTime" : "8n",
    "feedback" : 0.5,
@@ -498,7 +496,12 @@ var limiter = new Tone.Limiter(-2);
 
 
 
-//Master Chain Control
+//Master Chain Control for Mobile/Desktop
 
-
-Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
+(function(){
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    Tone.Master.chain(comp,limiter);
+} else {
+      Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter)
+    }
+})();
