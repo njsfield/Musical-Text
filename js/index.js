@@ -57,12 +57,23 @@ var $bodyText = $('.body-text').html();
 
 
 var searchWord = function(word) {
-$('.tone-trigger').removeClass('np-current');
-var reg = new RegExp(word.trim(), "gi");
-var $newBodyText = $bodyText.replace(reg, "<span class='tone-trigger'>$&</span>");
-$('.body-text').html($newBodyText);
-triggerFunction();
+    $('.tone-trigger').removeClass('np-current');
+    var reg = new RegExp(word.trim(), "gi");
+    var $newBodyText = $bodyText.replace(reg, "<span class='tone-trigger'>$&</span>");
+    $('.body-text').html($newBodyText);
+    triggerFunction();
 }
+
+
+//np-current width/margin style editor
+
+function editEmbeddedStyle(word){
+    var length = word.length * 8;
+    document.getElementsByTagName('style')[0].innerHTML=
+        ".np-current:after {width: "+length+"px;height: "+length+"px;margin-left: -"+length+"px;}";
+}
+
+
 
 
 //Nav bar toggles
@@ -90,6 +101,7 @@ $("#search-button").on("click", function(){
         var searchVal = new RegExp($("#search-field").val(), "g")
         if (searchVal.test($bodyText) && ($("#search-field").val()).length > 1 ) {
             searchWord($("#search-field").val());
+            editEmbeddedStyle($("#search-field").val());
             $("#search-field").attr("placeholder", $("#search-field").val());
             $("#search-field").val("");
             $("#search-field").removeClass("red-background");

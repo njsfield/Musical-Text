@@ -5,7 +5,8 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   cleanCSS = require('gulp-clean-css'),
   rename = require('gulp-rename'),
-     del = require('del');
+     del = require('del'),
+ autoprefixer = require('gulp-autoprefixer');
 
 
 gulp.task("minifyScripts", function() {
@@ -17,6 +18,10 @@ gulp.task("minifyScripts", function() {
 
 gulp.task('minifyCSS', function() {
   return gulp.src('css/style.css')
+    .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(rename('style.min.css'))
     .pipe(gulp.dest('css'));
