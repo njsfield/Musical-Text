@@ -2,6 +2,9 @@
 
 * {
     box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
 }
 
 
@@ -21,8 +24,6 @@
 
 body {
     background: black;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
 }
 
 

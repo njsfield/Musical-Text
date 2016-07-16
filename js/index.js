@@ -181,6 +181,7 @@ $(".preset").on("click", function(){
 function presetMaker(number) {
     switch(+number) {
         case 1:
+            synthSetting("square");
             synthPitch = 4;
             synthType = 1;
             noteLength = "8n";
@@ -192,6 +193,7 @@ function presetMaker(number) {
             freeverb.wet.rampTo(0.1, 0.5);
             break;
         case 2:
+            synthSetting("sine");
             synthPitch = 5;
             synthType = 2;
             noteLength = "4n";
@@ -203,6 +205,7 @@ function presetMaker(number) {
             freeverb.wet.rampTo(0.05, 0.5);
             break;
         case 3:
+            synthSetting("saw");
             synthPitch = 3;
             synthType = 3;
             noteLength = "2n";
@@ -214,6 +217,7 @@ function presetMaker(number) {
             freeverb.wet.rampTo(0.01, 0.5);
             break;
         case 4:
+            synthSetting("chord");
             synthPitch = 3;
             synthType = 4;
             noteLength = "4n";
@@ -237,9 +241,7 @@ var noteLength = "8n";
 
 ////////Synths //////
 
-//squareSynth
-
-var squareSynth = new Tone.MonoSynth({
+var squareSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -251,13 +253,13 @@ var squareSynth = new Tone.MonoSynth({
     'rolloff':-24
 },
 'envelope':{
-'attack':0.005,
+'attack':0.5,
 'decay':0.2,
 'sustain':0.3,
 'release':1.5
 },
 'filterEnvelope':{
-'attack':0.03,
+'attack':0.5,
 'decay':0.9,
 'sustain':0.1,
 'release':1,
@@ -265,13 +267,9 @@ var squareSynth = new Tone.MonoSynth({
 'octaves':5,
 'exponent':5
 }
-}
-).toMaster();
+};
 
-
-
-//sineSynth
-var sineSynth = new Tone.MonoSynth({
+var sineSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -298,12 +296,9 @@ var sineSynth = new Tone.MonoSynth({
 'exponent':5
 },
 'volume':3.5
-}
-).toMaster();
+};
 
-
-//sawSynth
-var sawSynth = new Tone.MonoSynth({
+var sawSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -330,15 +325,10 @@ var sawSynth = new Tone.MonoSynth({
 'exponent':5
 },
 'volume':1.5
-}
-).toMaster();
+};
 
 
-//chordSynth
-
-var chordSynth = new Tone.PolySynth(2, Tone.MonoSynth).toMaster();
-
-chordSynth.set({
+var chordSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -365,11 +355,75 @@ chordSynth.set({
 'exponent':5
 },
 'volume':0.5
+};
+
+
+
+
+
+//squareSynth
+
+var theSynth = new Tone.MonoSynth(squareSynthPresets).toMaster();
+
+
+function synthSetting (setting) {
+    switch(setting) {
+        case ("square"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(squareSynthPresets).toMaster();
+        case ("sine"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(sineSynthPresets).toMaster();
+        case ("saw"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(sawSynthPresets).toMaster();
+        case ("chord"):
+            theSynth.dispose();
+            theSynth = new Tone.PolySynth(2, Tone.MonoSynth).toMaster();
+            theSynth.set(chordSynthPresets);
+    }
 }
-);
 
 
 
+
+
+
+// Play function
+
+var playTone = function(){
+
+var notes = ["A","B","C","D","E","F","G"];
+var note = notes[Math.floor(Math.random() * 7)];
+    switch(synthType) {
+        case 1:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 2:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 3:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 4:
+            theSynth.triggerAttackRelease(chordMapper(note,synthPitch), noteLength);
+            break;
+    }
+};
+
+
+var chordMapper = function(note,pitch) {
+    switch(note) {
+    	case "A" : return ["A" + pitch, "E" + pitch];
+    	case "B" : return ["B" + pitch, "Fb" + pitch];
+    	case "C" : return ["C" + pitch, "G" + pitch];
+    	case "D" : return ["D" + pitch, "A" + (+pitch + 1).toString()];
+    	case "E" : return ["E" + pitch, "B" + (+pitch + 1).toString()];
+    	case "F" : return ["F" + pitch, "C" + (+pitch + 1).toString()];
+    	case "G" : return ["G" + pitch, "D" + (+pitch + 1).toString()];
+    	default : return undefined;
+    }
+};
 
 
 
@@ -444,43 +498,7 @@ var limiter = new Tone.Limiter(-2);
 
 
 
+//Master Chain Control
 
 
-
-var playTone = function(){
-
-var notes = ["A","B","C","D","E","F","G"];
-var note = notes[Math.floor(Math.random() * 7)];
-    switch(synthType) {
-        case 1:
-            squareSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 2:
-            sineSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 3:
-            sawSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 4:
-            chordSynth.triggerAttackRelease(chordMapper(note,synthPitch), noteLength);
-            break;
-    }
-}
-
-
-var chordMapper = function(note,pitch) {
-    switch(note) {
-    	case "A" : return ["A" + pitch, "E" + pitch];
-    	case "B" : return ["B" + pitch, "Fb" + pitch];
-    	case "C" : return ["C" + pitch, "G" + pitch];
-    	case "D" : return ["D" + pitch, "A" + (+pitch + 1).toString()];
-    	case "E" : return ["E" + pitch, "B" + (+pitch + 1).toString()];
-    	case "F" : return ["F" + pitch, "C" + (+pitch + 1).toString()];
-    	case "G" : return ["G" + pitch, "D" + (+pitch + 1).toString()];
-    	default : return undefined;
-    }
-}
-
-    Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
-
-
+Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
