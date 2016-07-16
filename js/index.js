@@ -1,11 +1,12 @@
+var $bodyText = $('.body-text').html();
+
 
 //Welcome box
 
 //If no localstorage preset is found, remove hidden styles from welcome box & overlay
 
 if (!localStorage.welcomeMessage) {
-   $("#welcome-container").show();
-   $("#welcome-overlay").show();
+   $("#welcome-container, #welcome-overlay").show();
 }
 
 //Hide box & save in local storage
@@ -13,23 +14,20 @@ if (!localStorage.welcomeMessage) {
 
 $("#welcome-box-cross, #click-to-close, #welcome-overlay").on("click",function(){
     localStorage.clear();
-    $("#welcome-container").hide();
-    $("#welcome-overlay").hide();
+    $("#welcome-container, #welcome-overlay").hide();
     localStorage.setItem("welcomeMessage", "seen");
-
 });
 
 
 //show info box again
 $("#info-button").on("click", function(){
     localStorage.clear();
-    $("#welcome-container").show();
-    $("#welcome-overlay").show();
+    $("#welcome-container, #welcome-overlay").show();
 })
 
 
 
-//Way Point class adder
+//Way Point Class Adder
 
 var triggerFunction = function(){
   $('.tone-trigger').each(function() {
@@ -38,7 +36,6 @@ var triggerFunction = function(){
       handler: function(direction) {
 
         if($(this.element).hasClass('np-current') == false) {
-
         $('.tone-trigger').removeClass('np-current')
         $(this.element).addClass('np-current')
         playTone();
@@ -51,10 +48,8 @@ var triggerFunction = function(){
   })
 }
 
+
 //Text Formatter
-
-var $bodyText = $('.body-text').html();
-
 
 var searchWord = function(word) {
     $('.tone-trigger').removeClass('np-current');
@@ -74,24 +69,14 @@ function editEmbeddedStyle(word){
 }
 
 
-
-
 //Nav bar toggles
 
 //toggling the bar
 
-$(".fa-search").on("click", function(event){
-    console.log("clicked");
-    if ($(".search").hasClass("open")) {
-        $(".search").removeClass("open");
-    } else {
-        $(".search").addClass("open");
-    }
+$(".fa-search, #search-button-cross").on("click", function(event){
+    $(".search").toggleClass("open");
 })
 
-$("#search-button-cross").on("click", function(event){
-        $(".search").removeClass("open");
-})
 
 
 //using searching field
@@ -112,10 +97,11 @@ $("#search-button").on("click", function(){
     }
 })
 
+// remove red/green background when user focusses to search
+
 $("#search-field").on("focus", function(){
         $(this).val("");
-        $(this).removeClass("red-background");
-        $(this).removeClass("green-background");
+        $(this).removeClass("red-background green-background");
 })
 
 
@@ -168,18 +154,10 @@ $("#volume-button").on("click", function(){
 })
 
 
-// Audio Preset button
+// Audio Preset Toggle Button
 
-$("#audio-button").on("click", function(){
-    if ( $(".audio-preset").hasClass("open") ) {
-        $(".audio-preset").removeClass("open");
-    } else {
-        $(".audio-preset").addClass("open");
-    }
-})
-
-$("#audio-button-cross").on("click", function(){
-    $(".audio-preset").removeClass("open");
+$("#audio-button, #audio-button-cross").on("click", function(){
+    $(".audio-preset").toggleClass("open");
 })
 
 
@@ -195,7 +173,7 @@ $(".preset").on("click", function(){
 
 
 
-//Tone Generation (utilizes tone)
+//Synth Generation (utilizes Tone.js)
 
 
 // Preset Alterer
@@ -246,7 +224,7 @@ function presetMaker(number) {
             chorus.wet.rampTo(0.2, 0.5);
             freeverb.wet.rampTo(0.05, 0.5);
             break;
-        default: console.log("no number was selected");
+        default: ;
     }
 }
 

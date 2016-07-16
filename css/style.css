@@ -1,10 +1,9 @@
-/**** base body styles ****/
+/**** general styles ****/
 
 * {
     box-sizing: border-box;
 }
 
-/*** container ****/
 
 
 .row {
@@ -20,15 +19,26 @@
     z-index: 100;
 }
 
-.body-text {
-    line-height: 30px;
-    color: grey;
-}
-
 body {
     background: black;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+}
+
+
+button {
+    border: none;
+    background: lightgray;
+}
+
+
+
+/**** Text Area ******/
+
+
+.body-text {
+    line-height: 30px;
+    color: grey;
 }
 
 textarea {
@@ -36,12 +46,6 @@ textarea {
     max-width: 1200px;
     height: 100vh;
 }
-
-button {
-    border: none;
-    background: lightgray;
-}
-
 
 
 
@@ -152,7 +156,7 @@ i, .preset {
 }
 
 
-/** animated word **/
+/** animated word & orb grow **/
 
 .np-current {
   position: relative;
