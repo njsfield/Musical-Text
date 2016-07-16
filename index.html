@@ -184,34 +184,27 @@
 
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/Tone.min.js"></script>
   <script src="js/StartAudioContext.js"></script>
+
+ <script>
+
+$(function(){
+	//mobile start on search button
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        var searchButton = $("#search-button");
+		StartAudioContext.setContext(Tone.context);
+		StartAudioContext.on(searchButton);
+ 		}
+	}
+);
+
+ </script>
+
+
+  <script src="js/Tone.min.js"></script>
   <script src="js/index.min.js"></script>
 
-    <script>
 
-    var had_touch = false;
-    // script to allow support for IOS
-    document.addEventListener("touchend", function (){
-        if (had_touch)		return;
-
-        // create web audio api context
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        // create Oscillator node
-        var oscillator = audioCtx.createOscillator();
-
-        oscillator.type = 'square';
-        oscillator.frequency.value = 3000; // value in hertz
-        oscillator.connect(audioCtx.destination);
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.04);
-
-         had_touch = true;
-    }
-    );
-
-    </script>
 
 </body>
 
