@@ -1,10 +1,12 @@
-/**** base body styles ****/
+/**** general styles ****/
 
 * {
     box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
 }
 
-/*** container ****/
 
 
 .row {
@@ -20,14 +22,24 @@
     z-index: 100;
 }
 
+body {
+    background: black;
+}
+
+
+button {
+    border: none;
+    background: lightgray;
+}
+
+
+
+/**** Text Area ******/
+
+
 .body-text {
     line-height: 30px;
     color: grey;
-}
-
-body {
-    background: black;
-    font-family: 'Roboto', sans-serif;
 }
 
 textarea {
@@ -35,12 +47,6 @@ textarea {
     max-width: 1200px;
     height: 100vh;
 }
-
-button {
-    border: none;
-    background: lightgray;
-}
-
 
 
 
@@ -129,16 +135,6 @@ i, .preset {
     100% { color: white }
 }
 
-
-.np-current {
-  position: relative;
-  color: blue;
-  font-weight: 900;
-  transition: all .1s;
-  animation: toWhite 1s ease forwards;
-}
-
-
 #search-field:focus {
     background: white;
     color: black;
@@ -161,13 +157,43 @@ i, .preset {
 }
 
 
+/** animated word & orb grow **/
+
+.np-current {
+  position: relative;
+  color: blue;
+  font-weight: 900;
+  transition: all .1s;
+  animation: toWhite 1s ease forwards;
+}
+
+
+.np-current:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    transform: scale(0);
+    transform-origin: center;
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: orbGrow 1s ease-out forwards;
+}
+
+
+@keyframes orbGrow {
+    100% {
+        transform: scale(8);
+        opacity: 0;
+        border-width: 1px;
+    }
+}
+
 
 /******** Welcome **********/
 
 #welcome-title {
     font-size: 23px;
-    text-decoration: underline;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 #welcome-container {
@@ -177,7 +203,7 @@ i, .preset {
     color: black;
     z-index: 1000;
     margin: 50px;
-    font-weight: 100;
+    font-weight: 300;
     padding: 25px;
     max-width: 500px;
     line-height: 23px;

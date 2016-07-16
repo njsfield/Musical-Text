@@ -1,11 +1,12 @@
+var $bodyText = $('.body-text').html();
+
 
 //Welcome box
 
 //If no localstorage preset is found, remove hidden styles from welcome box & overlay
 
 if (!localStorage.welcomeMessage) {
-   $("#welcome-container").show();
-   $("#welcome-overlay").show();
+   $("#welcome-container, #welcome-overlay").show();
 }
 
 //Hide box & save in local storage
@@ -13,23 +14,20 @@ if (!localStorage.welcomeMessage) {
 
 $("#welcome-box-cross, #click-to-close, #welcome-overlay").on("click",function(){
     localStorage.clear();
-    $("#welcome-container").hide();
-    $("#welcome-overlay").hide();
+    $("#welcome-container, #welcome-overlay").hide();
     localStorage.setItem("welcomeMessage", "seen");
-
 });
 
 
 //show info box again
 $("#info-button").on("click", function(){
     localStorage.clear();
-    $("#welcome-container").show();
-    $("#welcome-overlay").show();
+    $("#welcome-container, #welcome-overlay").show();
 })
 
 
 
-//Way Point class adder
+//Way Point Class Adder
 
 var triggerFunction = function(){
   $('.tone-trigger').each(function() {
@@ -38,7 +36,6 @@ var triggerFunction = function(){
       handler: function(direction) {
 
         if($(this.element).hasClass('np-current') == false) {
-
         $('.tone-trigger').removeClass('np-current')
         $(this.element).addClass('np-current')
         playTone();
@@ -51,17 +48,24 @@ var triggerFunction = function(){
   })
 }
 
+
 //Text Formatter
 
-var $bodyText = $('.body-text').html();
-
-
 var searchWord = function(word) {
-$('.tone-trigger').removeClass('np-current');
-var reg = new RegExp(word.trim(), "gi");
-var $newBodyText = $bodyText.replace(reg, "<span class='tone-trigger'>$&</span>");
-$('.body-text').html($newBodyText);
-triggerFunction();
+    $('.tone-trigger').removeClass('np-current');
+    var reg = new RegExp(word.trim(), "gi");
+    var $newBodyText = $bodyText.replace(reg, "<span class='tone-trigger'>$&</span>");
+    $('.body-text').html($newBodyText);
+    triggerFunction();
+}
+
+
+//np-current width/margin style editor
+
+function editEmbeddedStyle(word){
+    var length = word.length * 8;
+    document.getElementsByTagName('style')[0].innerHTML=
+        ".np-current:after {width: "+length+"px;height: "+length+"px;margin-left: -"+length+"px;}";
 }
 
 
@@ -69,18 +73,10 @@ triggerFunction();
 
 //toggling the bar
 
-$(".fa-search").on("click", function(event){
-    console.log("clicked");
-    if ($(".search").hasClass("open")) {
-        $(".search").removeClass("open");
-    } else {
-        $(".search").addClass("open");
-    }
+$(".fa-search, #search-button-cross").on("click", function(event){
+    $(".search").toggleClass("open");
 })
 
-$("#search-button-cross").on("click", function(event){
-        $(".search").removeClass("open");
-})
 
 
 //using searching field
@@ -90,6 +86,7 @@ $("#search-button").on("click", function(){
         var searchVal = new RegExp($("#search-field").val(), "g")
         if (searchVal.test($bodyText) && ($("#search-field").val()).length > 1 ) {
             searchWord($("#search-field").val());
+            editEmbeddedStyle($("#search-field").val());
             $("#search-field").attr("placeholder", $("#search-field").val());
             $("#search-field").val("");
             $("#search-field").removeClass("red-background");
@@ -100,10 +97,11 @@ $("#search-button").on("click", function(){
     }
 })
 
+// remove red/green background when user focusses to search
+
 $("#search-field").on("focus", function(){
         $(this).val("");
-        $(this).removeClass("red-background");
-        $(this).removeClass("green-background");
+        $(this).removeClass("red-background green-background");
 })
 
 
@@ -156,18 +154,10 @@ $("#volume-button").on("click", function(){
 })
 
 
-// Audio Preset button
+// Audio Preset Toggle Button
 
-$("#audio-button").on("click", function(){
-    if ( $(".audio-preset").hasClass("open") ) {
-        $(".audio-preset").removeClass("open");
-    } else {
-        $(".audio-preset").addClass("open");
-    }
-})
-
-$("#audio-button-cross").on("click", function(){
-    $(".audio-preset").removeClass("open");
+$("#audio-button, #audio-button-cross").on("click", function(){
+    $(".audio-preset").toggleClass("open");
 })
 
 
@@ -183,60 +173,7 @@ $(".preset").on("click", function(){
 
 
 
-//Tone Generation (utilizes tone)
-
-
-// Preset Alterer
-
-function presetMaker(number) {
-    switch(+number) {
-        case 1:
-            synthPitch = 4;
-            synthType = 1;
-            noteLength = "8n";
-            pingPong.wet.rampTo(0.1, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0, 0.5);
-            chorus.wet.rampTo(0, 0.5);
-            freeverb.wet.rampTo(0.1, 0.5);
-            break;
-        case 2:
-            synthPitch = 5;
-            synthType = 2;
-            noteLength = "4n";
-            pingPong.wet.rampTo(0.05, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0.9, 0.5);
-            chorus.wet.rampTo(0, 0.5);
-            freeverb.wet.rampTo(0.05, 0.5);
-            break;
-        case 3:
-            synthPitch = 3;
-            synthType = 3;
-            noteLength = "2n";
-            pingPong.wet.rampTo(0, 0.5);
-            feedbackDelay.wet.rampTo(0.01, 0.5);
-            syncedDelay.wet.rampTo(0, 0.5);
-            vibrato.wet.rampTo(0.9, 0.5);
-            chorus.wet.rampTo(0.5, 0.5);
-            freeverb.wet.rampTo(0.01, 0.5);
-            break;
-        case 4:
-            synthPitch = 3;
-            synthType = 4;
-            noteLength = "4n";
-            pingPong.wet.rampTo(0, 0.5);
-            feedbackDelay.wet.rampTo(0, 0.5);
-            syncedDelay.wet.rampTo(0.1, 0.5);
-            vibrato.wet.rampTo(0.3, 0.5);
-            chorus.wet.rampTo(0.2, 0.5);
-            freeverb.wet.rampTo(0.05, 0.5);
-            break;
-        default: console.log("no number was selected");
-    }
-}
+//Synth Generation (utilizes Tone.js)
 
 
 //Global audio variables
@@ -247,9 +184,7 @@ var noteLength = "8n";
 
 ////////Synths //////
 
-//squareSynth
-
-var squareSynth = new Tone.MonoSynth({
+var squareSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -261,13 +196,13 @@ var squareSynth = new Tone.MonoSynth({
     'rolloff':-24
 },
 'envelope':{
-'attack':0.005,
+'attack':0.5,
 'decay':0.2,
 'sustain':0.3,
 'release':1.5
 },
 'filterEnvelope':{
-'attack':0.03,
+'attack':0.5,
 'decay':0.9,
 'sustain':0.1,
 'release':1,
@@ -275,13 +210,9 @@ var squareSynth = new Tone.MonoSynth({
 'octaves':5,
 'exponent':5
 }
-}
-).toMaster();
+};
 
-
-
-//sineSynth
-var sineSynth = new Tone.MonoSynth({
+var sineSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -309,11 +240,8 @@ var sineSynth = new Tone.MonoSynth({
 },
 'volume':3.5
 }
-).toMaster();
 
-
-//sawSynth
-var sawSynth = new Tone.MonoSynth({
+var sawSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -340,15 +268,10 @@ var sawSynth = new Tone.MonoSynth({
 'exponent':5
 },
 'volume':1.5
-}
-).toMaster();
+};
 
 
-//chordSynth
-
-var chordSynth = new Tone.PolySynth(2, Tone.MonoSynth).toMaster();
-
-chordSynth.set({
+var chordSynthPresets = {
 'frequency' : "C4",
 'detune' : 0,
 'oscillator' : {
@@ -375,11 +298,130 @@ chordSynth.set({
 'exponent':5
 },
 'volume':0.5
+};
+
+
+
+
+
+//squareSynth
+
+var theSynth = new Tone.MonoSynth(squareSynthPresets).toMaster();
+
+
+function synthSetting (setting) {
+    switch(setting) {
+        case ("square"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(squareSynthPresets).toMaster();
+        case ("sine"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(sineSynthPresets).toMaster();
+        case ("saw"):
+            theSynth.dispose();
+            theSynth = new Tone.MonoSynth(sawSynthPresets).toMaster();
+        case ("chord"):
+            theSynth.dispose();
+            theSynth = new Tone.PolySynth(2, Tone.MonoSynth).toMaster();
+            theSynth.set(chordSynthPresets);
+    }
 }
-);
 
 
 
+// Preset Alterer
+
+function presetMaker(number) {
+    switch(+number) {
+        case 1:
+            synthSetting("square");
+            synthPitch = 4;
+            synthType = 1;
+            noteLength = "8n";
+            pingPong.wet.rampTo(0.1, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0, 0.5);
+            chorus.wet.rampTo(0, 0.5);
+            freeverb.wet.rampTo(0.1, 0.5);
+            break;
+        case 2:
+            synthSetting("sine");
+            synthPitch = 5;
+            synthType = 2;
+            noteLength = "4n";
+            pingPong.wet.rampTo(0.05, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0.9, 0.5);
+            chorus.wet.rampTo(0, 0.5);
+            freeverb.wet.rampTo(0.05, 0.5);
+            break;
+        case 3:
+            synthSetting("saw");
+            synthPitch = 3;
+            synthType = 3;
+            noteLength = "2n";
+            pingPong.wet.rampTo(0, 0.5);
+            feedbackDelay.wet.rampTo(0.01, 0.5);
+            syncedDelay.wet.rampTo(0, 0.5);
+            vibrato.wet.rampTo(0.9, 0.5);
+            chorus.wet.rampTo(0.5, 0.5);
+            freeverb.wet.rampTo(0.01, 0.5);
+            break;
+        case 4:
+            synthSetting("chord");
+            synthPitch = 3;
+            synthType = 4;
+            noteLength = "4n";
+            pingPong.wet.rampTo(0, 0.5);
+            feedbackDelay.wet.rampTo(0, 0.5);
+            syncedDelay.wet.rampTo(0.1, 0.5);
+            vibrato.wet.rampTo(0.3, 0.5);
+            chorus.wet.rampTo(0.2, 0.5);
+            freeverb.wet.rampTo(0.05, 0.5);
+            break;
+        default: ;
+    }
+}
+
+
+
+// Play function
+
+var playTone = function(){
+
+var notes = ["A","B","C","D","E","F","G"];
+var note = notes[Math.floor(Math.random() * 7)];
+    switch(synthType) {
+        case 1:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 2:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 3:
+            theSynth.triggerAttackRelease(note + synthPitch, noteLength);
+            break;
+        case 4:
+            theSynth.triggerAttackRelease(chordMapper(note,synthPitch), noteLength);
+            break;
+    }
+};
+
+
+var chordMapper = function(note,pitch) {
+    switch(note) {
+    	case "A" : return ["A" + pitch, "E" + pitch];
+    	case "B" : return ["B" + pitch, "Fb" + pitch];
+    	case "C" : return ["C" + pitch, "G" + pitch];
+    	case "D" : return ["D" + pitch, "A" + (+pitch + 1).toString()];
+    	case "E" : return ["E" + pitch, "B" + (+pitch + 1).toString()];
+    	case "F" : return ["F" + pitch, "C" + (+pitch + 1).toString()];
+    	case "G" : return ["G" + pitch, "D" + (+pitch + 1).toString()];
+    	default : return undefined;
+    }
+};
 
 
 
@@ -425,7 +467,7 @@ var feedbackDelay = new Tone.FeedbackDelay({
 });
 
 
-
+// Synec Delay
 var syncedDelay = new Tone.PingPongDelay({
    "delayTime" : "8n",
    "feedback" : 0.5,
@@ -454,43 +496,12 @@ var limiter = new Tone.Limiter(-2);
 
 
 
+//Master Chain Control for Mobile/Desktop
 
-
-
-var playTone = function(){
-
-var notes = ["A","B","C","D","E","F","G"];
-var note = notes[Math.floor(Math.random() * 7)];
-    switch(synthType) {
-        case 1:
-            squareSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 2:
-            sineSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 3:
-            sawSynth.triggerAttackRelease(note + synthPitch, noteLength);
-            break;
-        case 4:
-            chordSynth.triggerAttackRelease(chordMapper(note,synthPitch), noteLength);
-            break;
+(function(){
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    Tone.Master.chain(comp,limiter);
+} else {
+      Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter)
     }
-}
-
-
-var chordMapper = function(note,pitch) {
-    switch(note) {
-    	case "A" : return ["A" + pitch, "E" + pitch];
-    	case "B" : return ["B" + pitch, "Fb" + pitch];
-    	case "C" : return ["C" + pitch, "G" + pitch];
-    	case "D" : return ["D" + pitch, "A" + (+pitch + 1).toString()];
-    	case "E" : return ["E" + pitch, "B" + (+pitch + 1).toString()];
-    	case "F" : return ["F" + pitch, "C" + (+pitch + 1).toString()];
-    	case "G" : return ["G" + pitch, "D" + (+pitch + 1).toString()];
-    	default : return undefined;
-    }
-}
-
-    Tone.Master.chain(vol1, freeverb, pingPong, feedbackDelay, syncedDelay, vibrato, chorus, comp, vol2, limiter);
-
-
+})();
