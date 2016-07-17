@@ -211,7 +211,20 @@ i, .preset {
     max-height: 100vh;
     overflow: auto;
     padding-bottom: 40px;
+    animation: fadeUp .15s ease-out forwards;
 }
+
+@keyframes fadeUp {
+    0% {
+        transform: translateY(300px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 
 #welcome-overlay {
     width: 100%;
@@ -268,7 +281,7 @@ a {
 
 @media screen and (min-width: 1200px) {
     #welcome-container {
-    top: calc(50vh - 370px);
+    top: calc(50vh - 400px);
     left: calc(50vw - 250px)
     }
      #click-to-close {
